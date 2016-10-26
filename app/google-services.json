@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "671027530592",
+    "firebase_url": "https://fir-quotes-141a3.firebaseio.com",
+    "project_id": "fir-quotes-141a3",
+    "storage_bucket": "fir-quotes-141a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671027530592:android:9074ca9ae1b633ae",
+        "android_client_info": {
+          "package_name": "com.evanjustin.qegttnfirebasequotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671027530592-1ttsthv65qq1e82i3pb33gp22hj3snci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6MbMKJEilRxOmY0rTXR9cHfDVCB7Xxks"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

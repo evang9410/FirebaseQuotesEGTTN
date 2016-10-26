@@ -44,7 +44,7 @@ public class QuotesActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+        // test data for test quotes
         quotes = new Quote[]{new Quote("","","","Romance","",null),new Quote("","","","Sci-fi","",null)};
 
 
