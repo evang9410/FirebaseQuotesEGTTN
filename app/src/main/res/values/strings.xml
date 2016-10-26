@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">QEGTTNFirebaseQuotes</string>
+    <!-- FIREBASE CREDENTIALS-->
+    <string name="firebase_username">evang9410@gmail.com</string>
+    <string name="firebase_password">dawson420</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
