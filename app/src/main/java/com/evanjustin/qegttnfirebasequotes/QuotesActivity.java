@@ -22,9 +22,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class QuotesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private FirebaseDatabase fbdb; // sorry.
+    private DatabaseReference fbdbref;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private ListView category_listview;
@@ -36,15 +42,7 @@ public class QuotesActivity extends AppCompatActivity
         setContentView(R.layout.activity_quotes);
 
         //init firebaseauth
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password))
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                            Log.d("FB","signed into firebase");
-                    }
-                });
+        firebaseauthenticator();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,6 +74,46 @@ public class QuotesActivity extends AppCompatActivity
         category_listview = (ListView)findViewById(R.id.quote_cat_list);
         category_listview.setAdapter(category_adapter);
 
+    }
+
+    /**
+     * Initilizes and authenticates the user to use the firebase realtime database.
+     */
+    private void firebaseauthenticator(){
+        fbdb = FirebaseDatabase.getInstance();
+        fbdbref = fbdb.getReference();
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password))
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            Log.d("FB", "signed into firebase");
+                            //get the json object from the database and return it as an arraylist of quotes.
+                            readFirebaseDatabase(fbdbref);
+                        }
+                    }
+                });
+    }
+
+    private ArrayList<Quote> readFirebaseDatabase(DatabaseReference ref){
+        // Read from the database
+        /*myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                String value = dataSnapshot.getValue(String.class);
+                Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });*/
+        return null;
     }
 
     @Override
