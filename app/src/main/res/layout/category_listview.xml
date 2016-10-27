@@ -10,7 +10,6 @@
         android:textSize="32sp"
         android:textAlignment="center"
         android:layout_margin="10dp"
-        android:text="Romance"
         android:id="@+id/lv_category_name">
     </TextView>
 </LinearLayout>

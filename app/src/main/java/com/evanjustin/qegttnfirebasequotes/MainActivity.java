@@ -27,8 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class QuotesActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private DrawerLayout drawer;
     private FirebaseDatabase fbdb; // sorry.
     private DatabaseReference fbdbref;
     private FirebaseAuth firebaseAuth;
@@ -56,10 +57,11 @@ public class QuotesActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // initialize the drawer
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -96,8 +98,14 @@ public class QuotesActivity extends AppCompatActivity
                 });
     }
 
+    /**
+     * reads from the firebase database and returns an array of quote objects.
+     * @param ref
+     * @return
+     */
     private ArrayList<Quote> readFirebaseDatabase(DatabaseReference ref){
         // Read from the database
+
         /*myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -154,17 +162,11 @@ public class QuotesActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_about) {
+            // Handle the about action
+        } else if (id == R.id.nav_last_run) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_random) {
 
         }
 
