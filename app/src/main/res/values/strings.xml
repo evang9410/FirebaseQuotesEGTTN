@@ -15,4 +15,12 @@
 
     <string name="action_settings">Settings</string>
     <string name="quote_cat_header">Quote Category\'s</string>
+
+    <!-- Quote Activity Default Values -->
+    <string name="quote">No quote.</string>
+    <string name="author_name">Author</string>
+    <string name="date_added">Date</string>
+    <string name="ref_txt">Reference:</string>
+    <string name="ref_link">Link</string>
+    <string name="blurb_info">Blurb</string>
 </resources>
