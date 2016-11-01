@@ -9,6 +9,7 @@
     <!-- Default line hear margin in activity_quote-->
     <dimen name="line_margin">60dp</dimen>
 
-    <dimen name="font_size">20dp</dimen>
-    <dimen name="font_size_land">30dp</dimen>
+    <dimen name="font_size_small">14dp</dimen>
+    <dimen name="font_size_normal">20dp</dimen>
+    <dimen name="font_size_big">30dp</dimen>
 </resources>
