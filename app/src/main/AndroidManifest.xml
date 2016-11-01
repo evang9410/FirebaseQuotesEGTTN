@@ -20,5 +20,6 @@
         </activity>
         <activity android:name=".QuoteActivity" android:label="@string/quoteAct_name"></activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
