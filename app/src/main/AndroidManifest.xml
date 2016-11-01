@@ -18,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".QuoteActivity" android:label="@string/quoteAct_name"></activity>
     </application>
 
 </manifest>
