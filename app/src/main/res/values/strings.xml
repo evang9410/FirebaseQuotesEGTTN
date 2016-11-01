@@ -5,6 +5,12 @@
     <string name="firebase_username">evang9410@gmail.com</string>
     <string name="firebase_password">dawson420</string>
 
+    <!-- Categories -->
+    <string-array name="categories">
+        <item>War Time</item>
+        <item>Horror</item>
+    </string-array>
+
     <!-- Nav/Drawer options -->
     <string name="nav_about">About</string>
     <string name="nav_random">Random</string>

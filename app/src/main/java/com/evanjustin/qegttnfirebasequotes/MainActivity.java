@@ -38,15 +38,23 @@ public class MainActivity extends AppCompatActivity
     private FirebaseUser firebaseUser;
     private ListView category_listview;
     private Quote[] quotes;
-    private ArrayList<Quote> all_quotes;
+    private Quote last_quote;
+    // ArrayLists to hold the quotes
+    private ArrayList<Quote> all_quotes; // all the quotes in the firebase db
+    private ArrayList<Quote> war_time_quotes; // quotes in the wartime category.
+    private ArrayList<Quote> horror_quotes; // quotes in the horror category.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //init firebaseauth
+        //init firebaseauth and get all quotes from database.
         firebaseauthenticator();
+
+        //Sort the quotes into their respective categories.
+        sort_all_quotes();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -70,15 +78,26 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // test data for test quotes
-        quotes = new Quote[]{new Quote("","","","Romance","",null),new Quote("","","","Sci-fi","",null)};
 
 
         // Set up the adapter for the category list view.
-        QuoteCategoryAdapter category_adapter = new QuoteCategoryAdapter(this, R.layout.category_listview, quotes);
+        QuoteCategoryAdapter category_adapter = new QuoteCategoryAdapter(this, R.layout.category_listview, getResources().getStringArray(R.array.categories));
         category_listview = (ListView)findViewById(R.id.quote_cat_list);
         category_listview.setAdapter(category_adapter);
 
+    }
+
+    private void sort_all_quotes() {
+        for(Quote q : all_quotes){
+            switch(q.getCategory()){
+                case "War Time":
+                    war_time_quotes.add(q);
+                    break;
+                case "Horror":
+                    horror_quotes.add(q);
+                    break;
+            }
+        }
     }
 
     /**
@@ -95,10 +114,11 @@ public class MainActivity extends AppCompatActivity
                         if(task.isSuccessful()) {
                             Log.d("FB", "signed into firebase");
                             //get the json object from the database and return it as an arraylist of quotes.
-                            readFirebaseDatabase(fbdbref);
+
                         }
                     }
                 });
+        readFirebaseDatabase(fbdbref);
     }
 
     /**
@@ -107,11 +127,10 @@ public class MainActivity extends AppCompatActivity
      * @return
      */
     private void readFirebaseDatabase(DatabaseReference ref){
-
+        all_quotes = new ArrayList<>(25);
         ref.child("quotes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Quote q = new Quote();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     q = ds.getValue(Quote.class);
@@ -125,6 +144,12 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        firebaseAuth.signOut();
     }
 
     @Override

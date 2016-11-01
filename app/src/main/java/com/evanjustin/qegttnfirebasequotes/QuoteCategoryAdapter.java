@@ -13,12 +13,12 @@ import java.util.ArrayList;
 /**
  * Created by 1432581 on 10/26/2016.
  */
-public class QuoteCategoryAdapter extends ArrayAdapter<Quote> {
+public class QuoteCategoryAdapter extends ArrayAdapter<String> {
     private Context context;
     private int resource;
-    private Quote[] data;
+    private String[] data;
 
-    public QuoteCategoryAdapter(Context context, int resource, Quote[] data) {
+    public QuoteCategoryAdapter(Context context, int resource, String[] data) {
         super(context, resource, data);
         this.context = context;
         this.resource = resource;
@@ -42,8 +42,8 @@ public class QuoteCategoryAdapter extends ArrayAdapter<Quote> {
         }else{
             holder = (Holder)row.getTag();
         }
-        Quote quote = data[position];
-        holder.tv.setText(quote.getCategory());
+        String s = data[position];
+        holder.tv.setText(s);
         return row;
     }
 }
