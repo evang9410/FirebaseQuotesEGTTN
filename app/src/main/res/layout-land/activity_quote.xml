@@ -13,7 +13,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/categoryText"
+                android:text="@string/category_title"
+                android:textSize="@dimen/font_size_small"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.40"
             android:orientation="vertical"
             android:gravity="center">
 
@@ -23,8 +37,10 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/attributedName"
                 android:text="@string/author_name"
-                android:textSize="@dimen/font_size_land"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="@dimen/font_size_big"
+                android:fontFamily="sans-serif-light"
+                android:clickable="true"
+                android:onClick="onNameClick"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,7 +48,7 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/dateAdded"
                 android:text="@string/date_added"
-                android:textSize="@dimen/font_size"
+                android:textSize="@dimen/font_size_normal"
                 android:fontFamily="sans-serif-light"/>
         </LinearLayout>
 
@@ -48,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/ref_txt"
-                android:textSize="@dimen/font_size_land"
+                android:textSize="@dimen/font_size_big"
                 android:fontFamily="sans-serif-light"/>
 
             <TextView
@@ -57,8 +73,10 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/refLink"
                 android:text="@string/ref_link"
-                android:textSize="@dimen/font_size"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="@dimen/font_size_normal"
+                android:fontFamily="sans-serif-light"
+                android:clickable="true"
+                android:onClick="onRefLink"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -81,7 +99,7 @@
             android:gravity="center_horizontal"
             android:id="@+id/quoteText"
             android:text="@string/quote"
-            android:textSize="@dimen/font_size_land"
+            android:textSize="@dimen/font_size_big"
             android:textStyle="bold|italic"
             android:fontFamily="sans-serif-light"/>
 
