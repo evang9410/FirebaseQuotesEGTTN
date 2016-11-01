@@ -21,8 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseUser firebaseUser;
     private ListView category_listview;
     private Quote[] quotes;
+    private ArrayList<Quote> all_quotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,25 +106,31 @@ public class MainActivity extends AppCompatActivity
      * @param ref
      * @return
      */
-    private ArrayList<Quote> readFirebaseDatabase(DatabaseReference ref){
-        // Read from the database
+    private void readFirebaseDatabase(DatabaseReference ref){
 
-        /*myRef.addValueEventListener(new ValueEventListener() {
+        ref.child("quotes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+
+                Quote q = new Quote();
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    q = ds.getValue(Quote.class);
+                    Log.i("FB Quote", "adding quote to list: " + q.toString());
+                    all_quotes.add(q);
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
+            public void onCancelled(DatabaseError databaseError) {
+
             }
-        });*/
-        return null;
+        });
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        firebaseAuth.signOut();
     }
 
     @Override
@@ -173,4 +183,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

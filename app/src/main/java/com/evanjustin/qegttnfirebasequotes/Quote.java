@@ -11,11 +11,11 @@ public class Quote {
     private String quote; // the text itself of the quote
     private String category;
     private String reference;
-    private Date date;
+    private String date;
 
     public Quote(){}
 
-    public Quote(String attributed, String blurb, String quote, String category, String reference, Date date) {
+    public Quote(String attributed, String blurb, String quote, String category, String reference, String date) {
         this.attributed = attributed;
         this.blurb = blurb;
         this.quote = quote;
@@ -56,6 +56,11 @@ public class Quote {
         this.quote = quote;
     }
 
+    @Override
+    public String toString() {
+        return this.quote +" - " + this.attributed + " " + this.date;
+    }
+
     public String getReference() {
         return reference;
     }
@@ -64,11 +69,11 @@ public class Quote {
         this.reference = reference;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }
