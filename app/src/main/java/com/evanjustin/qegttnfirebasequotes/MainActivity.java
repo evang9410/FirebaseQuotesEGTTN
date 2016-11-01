@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        all_quotes = new ArrayList(25);
 
         //init firebaseauth
         firebaseauthenticator();
@@ -128,8 +129,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPause(){
-        super.onPause();
+    public void onDestroy(){
+        super.onDestroy();
         firebaseAuth.signOut();
     }
 
