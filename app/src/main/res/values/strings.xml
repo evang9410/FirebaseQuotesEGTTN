@@ -22,7 +22,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
     <string name="quote_cat_header">Quote Category\'s</string>
 
     <!-- Quote Activity Default Values -->
@@ -35,4 +34,9 @@
     <string name="ref_link">Link</string>
     <string name="blurb_info">Blurb</string>
     <string name="ok">Got it!</string>
+
+    <!-- About Activity -->
+    <string name="developers">Thanh Tung Nguyen &amp; Evan Glicakis</string>
+    <string name="creation_date">Dawson College 2016</string>
+    <string name="app_description">Quote List Application</string>
 </resources>
