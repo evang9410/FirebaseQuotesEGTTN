@@ -46,4 +46,5 @@ public class QuoteCategoryAdapter extends ArrayAdapter<String> {
         holder.tv.setText(s);
         return row;
     }
+
 }

@@ -28,6 +28,7 @@ public class QuoteActivity extends AppCompatActivity {
         Intent i = getIntent();
         quoteInfo = (Quote)i.getParcelableExtra("quoteObject");
 
+
         // populate text views with whats in quoteInfo object
         fillViews();
     }

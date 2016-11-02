@@ -9,6 +9,8 @@
     <string-array name="categories">
         <item>War Time</item>
         <item>Horror</item>
+        <item>Oregairu</item>
+        <item>Shakespeare</item>
     </string-array>
 
     <!-- Nav/Drawer options -->
