@@ -164,22 +164,22 @@ public class MainActivity extends AppCompatActivity
         fbdbref = fbdb.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password))
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Log.d("FB", "signed into firebase");
-                            //get the json object from the database and return it as an arraylist of quotes.
-                            readFirebaseDatabase(fbdbref);
-                        }
-                        if(!task.isSuccessful()){
-                            Log.w("FB","Sign in with Email",task.getException());
-                        }
-                    }
-                });
-//        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password));
-//        readFirebaseDatabase(fbdbref);
+//        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password))
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()) {
+//                            Log.d("FB", "signed into firebase");
+//                            //get the json object from the database and return it as an arraylist of quotes.
+//                            readFirebaseDatabase(fbdbref);
+//                        }
+//                        if(!task.isSuccessful()){
+//                            Log.w("FB","Sign in with Email",task.getException());
+//                        }
+//                    }
+//                });
+        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password));
+        readFirebaseDatabase(fbdbref);
 
     }
 
