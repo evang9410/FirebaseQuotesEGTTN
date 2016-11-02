@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -83,6 +85,44 @@ public class QuoteActivity extends AppCompatActivity {
                 .setPositiveButton(getString(R.string.ok), null);
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.quotes, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+            case(R.id.aboutMenu):
+                onAboutMenu();
+                return true;
+            case(R.id.randomMenu):
+                onRandomMenu();
+                return true;
+            case(R.id.lastRunMenu):
+                onLastRunMenu();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void onAboutMenu() {
+        Intent i = new Intent(this, AboutActivity.class);
+        startActivity(i);
+    }
+
+    private void onRandomMenu() {
+
+    }
+
+    private void onLastRunMenu() {
+
     }
 
 }

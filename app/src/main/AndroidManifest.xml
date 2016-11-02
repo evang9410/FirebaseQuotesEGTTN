@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
+        <activity android:name=".AboutActivity" android:label="@string/nav_about"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 
