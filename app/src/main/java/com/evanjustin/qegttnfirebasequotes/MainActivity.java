@@ -1,6 +1,7 @@
 package com.evanjustin.qegttnfirebasequotes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -51,12 +53,20 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Quote> shakespeare_quotes; //quotes from the shakespeare category.
     private ArrayList<Quote> philosophy_quotes; // quotes from the philosophy category.
 
+    SharedPreferences prefs;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setTitle("Categories");
         setContentView(R.layout.activity_main);
+
+        prefs = getSharedPreferences("Quotes",MODE_PRIVATE);
+        final SharedPreferences.Editor editor = prefs.edit();
+
 
         //init firebaseauth and get all quotes from database.
         firebaseauthenticator();
@@ -125,6 +135,11 @@ public class MainActivity extends AppCompatActivity
                         rng = rnd.nextInt(philosophy_quotes.size());
                         q = philosophy_quotes.get(rng);
                 }
+                Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
+                String json = gson.toJson(q);
+                editor.putString("last_run", json);
+                editor.commit();
+                Log.d("QUOTES", "writing quote to Gson object...");
 
                 quoteIntent.putExtra("quoteObject", q);
                 startActivity(quoteIntent);
@@ -270,9 +285,12 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_about) {
             // Handle the about action
+            onAboutMenu();
         } else if (id == R.id.nav_last_run) {
+            onLastRunMenu();
 
         } else if (id == R.id.nav_random) {
+            onRandomMenu();
 
         }
 
@@ -290,7 +308,19 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * reads quote from shared preferences and send it to the QuoteActivity
+     */
     private void onLastRunMenu() {
+        Gson gson = new Gson();
+        if(prefs.contains("last_run")) {
+            String json = prefs.getString("last_run", "");
+            Quote q = gson.fromJson(json, Quote.class);
+            Intent i = new Intent(MainActivity.this, QuoteActivity.class);
+            i.putExtra("quoteObject", q);
+            startActivity(i);
+        }
+
 
     }
 
