@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Quote> horror_quotes; // quotes in the horror category.
     private ArrayList<Quote> oregairu_quotes; // quotes from oregairu category.
     private ArrayList<Quote> shakespeare_quotes; //quotes from the shakespeare category.
+    private ArrayList<Quote> philosophy_quotes; // quotes from the philosophy category.
 
 
     @Override
@@ -119,6 +120,9 @@ public class MainActivity extends AppCompatActivity
                         rng = rnd.nextInt(shakespeare_quotes.size());
                         q = shakespeare_quotes.get(rng);
                         break;
+                    case 4:
+                        rng = rnd.nextInt(philosophy_quotes.size());
+                        q = philosophy_quotes.get(rng);
                 }
 
                 quoteIntent.putExtra("quoteObject", q);
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity
         horror_quotes = new ArrayList<>(5);
         oregairu_quotes = new ArrayList<>(5);
         shakespeare_quotes = new ArrayList<>(5);
+        philosophy_quotes = new ArrayList<>(5);
         for(Quote q : quotes){
             if(q.getCategory().equals("War Time"))
                 war_time_quotes.add(q);
@@ -145,7 +150,8 @@ public class MainActivity extends AppCompatActivity
                 oregairu_quotes.add(q);
             else if(q.getCategory().equals("Shakespeare"))
                 shakespeare_quotes.add(q);
-
+            else if(q.getCategory().equals("Philosophy"))
+                philosophy_quotes.add(q);
             }
     }
 
@@ -184,20 +190,18 @@ public class MainActivity extends AppCompatActivity
      * @return
      */
     private void readFirebaseDatabase(DatabaseReference ref){
-        all_quotes = new ArrayList<>(25);
+        final ArrayList<Quote> quotes = new ArrayList<>(25);
         ref.child("quotes").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Quote q = new Quote();
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    all_quotes.add(ds.getValue(Quote.class));
+                    quotes.add(ds.getValue(Quote.class));
                     Log.d("Quotes", "added quote");
-                    Log.d("Quotes", String.valueOf(all_quotes.size()));
+                    Log.d("Quotes", String.valueOf(quotes.size()));
                 }
-                Log.d("all quote size", String.valueOf(all_quotes.size()));
-                if(all_quotes.size() == 20){
-                    sort_all_quotes(all_quotes);
-                }
+                all_quotes = quotes;
+                sort_all_quotes(all_quotes);
 
             }
 
@@ -206,6 +210,7 @@ public class MainActivity extends AppCompatActivity
                 Log.d("FB CANCELLED", databaseError.getMessage());
             }
         });
+
     }
 
 //    @Override

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by Thanh Tung Nguyen, Evan Glicakis
  */
@@ -17,6 +19,8 @@ public class QuoteActivity extends AppCompatActivity {
     private final static String TAG = "QuoteActivity";
 
     private Quote quoteInfo;
+    TextView attributed;
+    TextView ref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,10 +31,29 @@ public class QuoteActivity extends AppCompatActivity {
         // get intent extras and place it into quoteInfo field
         Intent i = getIntent();
         quoteInfo = (Quote)i.getParcelableExtra("quoteObject");
-
-
         // populate text views with whats in quoteInfo object
         fillViews();
+
+        attributed = (TextView)findViewById(R.id.attributedName);
+        attributed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onNameClick();
+            }
+        });
+
+
+        ref = (TextView)findViewById(R.id.refLink);
+        ref.setText(quoteInfo.getReference());
+        ref.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onRefLink();
+            }
+        });
+
+
+
     }
 
     private void fillViews() {
