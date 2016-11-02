@@ -39,8 +39,8 @@
                 android:text="@string/author_name"
                 android:textSize="@dimen/font_size_big"
                 android:fontFamily="sans-serif-light"
-                android:clickable="true"
-                android:onClick="onNameClick"/>
+                android:onClick="onNameClick"
+                android:clickable="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,8 +75,8 @@
                 android:text="@string/ref_link"
                 android:textSize="@dimen/font_size_normal"
                 android:fontFamily="sans-serif-light"
-                android:clickable="true"
-                android:onClick="onRefLink"/>
+                android:onClick="onRefLink"
+                android:clickable="true" />
         </LinearLayout>
     </LinearLayout>
 
