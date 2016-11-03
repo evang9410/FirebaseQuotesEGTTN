@@ -44,7 +44,6 @@ public class QuoteActivity extends AppCompatActivity {
             }
         });
 
-
         ref = (TextView)findViewById(R.id.refLink);
         ref.setText(quoteInfo.getReference());
         ref.setOnClickListener(new View.OnClickListener() {

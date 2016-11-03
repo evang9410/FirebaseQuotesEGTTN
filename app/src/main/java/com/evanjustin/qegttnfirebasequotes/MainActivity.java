@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Quote> philosophy_quotes; // quotes from the philosophy category.
 
     SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
 
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         prefs = getSharedPreferences("Quotes",MODE_PRIVATE);
-        final SharedPreferences.Editor editor = prefs.edit();
+        editor = prefs.edit();
 
 
         //init firebaseauth and get all quotes from database.
@@ -109,43 +110,48 @@ public class MainActivity extends AppCompatActivity
          */
         category_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Random rnd = new Random();
-                int rng;
-                Quote q = new Quote();
-                Intent quoteIntent = new Intent(MainActivity.this,QuoteActivity.class);
-                switch(i){
-                    case 0:
-                        rng = rnd.nextInt(war_time_quotes.size());
-                        q = war_time_quotes.get(rng);
-                        break;
-                    case 1:
-                        rng = rnd.nextInt(horror_quotes.size());
-                        q = horror_quotes.get(rng);
-                        break;
-                    case 2:
-                        rng = rnd.nextInt(oregairu_quotes.size());
-                        q = oregairu_quotes.get(rng);
-                        break;
-                    case 3:
-                        rng = rnd.nextInt(shakespeare_quotes.size());
-                        q = shakespeare_quotes.get(rng);
-                        break;
-                    case 4:
-                        rng = rnd.nextInt(philosophy_quotes.size());
-                        q = philosophy_quotes.get(rng);
-                }
-                Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
-                String json = gson.toJson(q);
-                editor.putString("last_run", json);
-                editor.commit();
-                Log.d("QUOTES", "writing quote to Gson object...");
-
-                quoteIntent.putExtra("quoteObject", q);
-                startActivity(quoteIntent);
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int index, long l) {
+                startQuoteActivity(index);
             }
         });
+
+    }
+
+    private void startQuoteActivity(int i) {
+
+        Random rnd = new Random();
+        int rng;
+        Quote q = new Quote();
+        Intent quoteIntent = new Intent(MainActivity.this,QuoteActivity.class);
+        switch(i){
+            case 0:
+                rng = rnd.nextInt(war_time_quotes.size());
+                q = war_time_quotes.get(rng);
+                break;
+            case 1:
+                rng = rnd.nextInt(horror_quotes.size());
+                q = horror_quotes.get(rng);
+                break;
+            case 2:
+                rng = rnd.nextInt(oregairu_quotes.size());
+                q = oregairu_quotes.get(rng);
+                break;
+            case 3:
+                rng = rnd.nextInt(shakespeare_quotes.size());
+                q = shakespeare_quotes.get(rng);
+                break;
+            case 4:
+                rng = rnd.nextInt(philosophy_quotes.size());
+                q = philosophy_quotes.get(rng);
+        }
+        Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
+        String json = gson.toJson(q);
+        editor.putString("last_run", json);
+        editor.commit();
+        Log.d("QUOTES", "writing quote to Gson object...");
+
+        quoteIntent.putExtra("quoteObject", q);
+        startActivity(quoteIntent);
 
     }
 
@@ -305,7 +311,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void onRandomMenu() {
-
+        Random rnd = new Random();
+        int index = rnd.nextInt(5);
+        startQuoteActivity(index);
     }
 
     /**
