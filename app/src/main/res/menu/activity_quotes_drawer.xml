@@ -6,15 +6,15 @@
             android:id="@+id/nav_about"
             android:title="@string/nav_about"
             android:icon="@drawable/ic_menu_about"/>
+
         <item
             android:id="@+id/nav_random"
             android:title="@string/nav_random"
             android:icon="@drawable/ic_menu_dice3"/>
+
         <item
             android:id="@+id/nav_last_run"
             android:title="@string/nav_last_run"
             android:icon="@drawable/ic_menu_last_run"/>
-
     </group>
-
 </menu>

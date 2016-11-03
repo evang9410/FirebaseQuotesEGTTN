@@ -11,23 +11,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_quotes"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/quote_cat_header"
-        android:id="@+id/textView3"
-        android:layout_weight="1"/>
+    android:orientation="vertical"
+    android:background="@drawable/whitetexture">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/quote_cat_list"
-        android:layout_weight="4">
-
-
+        android:layout_weight="4"
+        android:divider="@null"
+        android:dividerHeight="0dp">
     </ListView>
 
 </LinearLayout>
