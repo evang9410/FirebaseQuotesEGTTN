@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/categoryText"
             android:text="@string/category_title"
-            android:textSize="@dimen/font_size_small"/>
+            android:textSize="@dimen/font_size_normal"/>
     </LinearLayout>
 
     <LinearLayout
