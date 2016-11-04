@@ -72,7 +72,7 @@
                 android:gravity="center_horizontal"
                 android:id="@+id/refLink"
                 android:text="@string/ref_link"
-                android:textSize="@dimen/font_size_normal"
+                android:textSize="@dimen/font_size_small"
 
                 android:clickable="true" />
         </LinearLayout>

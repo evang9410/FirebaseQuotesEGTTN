@@ -92,6 +92,12 @@ public class QuoteActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,12 +138,12 @@ public class QuoteActivity extends AppCompatActivity {
         i.putExtra("quoteObject", q);
         startActivity(i);
 
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
-        String json = gson.toJson(q);
-        editor.putString("last_run", json);
-        editor.commit();
-        Log.d("QUOTES", "writing quote to Gson object...");
+//        SharedPreferences.Editor editor = prefs.edit();
+//        Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
+//        String json = gson.toJson(q);
+//        editor.putString("last_run", json);
+//        editor.commit();
+//        Log.d("QUOTES", "writing quote to Gson object...");
     }
 
     private void onLastRunMenu() {
