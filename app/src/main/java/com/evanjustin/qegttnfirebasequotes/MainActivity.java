@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         this.setTitle("Categories");
         setContentView(R.layout.activity_main);
+        all_quotes = AllQuotes.all_quotes;
 
         prefs = getSharedPreferences("Quotes",MODE_PRIVATE);
         editor = prefs.edit();
@@ -186,22 +187,9 @@ public class MainActivity extends AppCompatActivity
         fbdbref = fbdb.getReference();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password))
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Log.d("QUOTES FB", "signed into firebase");
-                            //get the json object from the database and return it as an arraylist of quotes.
-                            readFirebaseDatabase(fbdbref);
-                        }
-                        if(!task.isSuccessful()){
-                            Log.w("QUOTES FB","Sign in with Email",task.getException());
-                        }
-                    }
-                });
+        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password));
 //        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password));
-//        readFirebaseDatabase(fbdbref);
+        readFirebaseDatabase(fbdbref);
 
     }
 
@@ -223,6 +211,7 @@ public class MainActivity extends AppCompatActivity
                     Log.d("Quotes", String.valueOf(quotes.size()));
                 }
                 all_quotes = quotes;
+                AllQuotes.all_quotes = quotes;
                 sort_all_quotes(all_quotes);
 
             }

@@ -1,6 +1,7 @@
 package com.evanjustin.qegttnfirebasequotes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -11,7 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.w3c.dom.Text;
+
+import java.util.Random;
 
 /**
  * Created by Thanh Tung Nguyen, Evan Glicakis
@@ -23,12 +28,14 @@ public class QuoteActivity extends AppCompatActivity {
     private Quote quoteInfo;
     TextView attributed;
     TextView ref;
+    SharedPreferences prefs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quote);
+        prefs = getSharedPreferences("Quotes",MODE_PRIVATE);
 
         // get intent extras and place it into quoteInfo field
         Intent i = getIntent();
@@ -117,10 +124,31 @@ public class QuoteActivity extends AppCompatActivity {
     }
 
     private void onRandomMenu() {
+        Intent i = new Intent(this, QuoteActivity.class);
+        Random rnd = new Random();
+        int rng = rnd.nextInt(AllQuotes.all_quotes.size());
+        Quote q = AllQuotes.all_quotes.get(rng);
+        Log.d("QA",q.toString());
+        i.putExtra("quoteObject", q);
+        startActivity(i);
 
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
+        String json = gson.toJson(q);
+        editor.putString("last_run", json);
+        editor.commit();
+        Log.d("QUOTES", "writing quote to Gson object...");
     }
 
     private void onLastRunMenu() {
+        Gson gson = new Gson();
+        if(prefs.contains("last_run")) {
+            String json = prefs.getString("last_run", "");
+            Quote q = gson.fromJson(json, Quote.class);
+            Intent i = new Intent(this, QuoteActivity.class);
+            i.putExtra("quoteObject", q);
+            startActivity(i);
+        }
 
     }
 
