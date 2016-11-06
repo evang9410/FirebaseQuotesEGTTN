@@ -11,7 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by 1432581 on 10/26/2016.
+ * Created by Evan Glicakis on 10/26/2016.
+ * Adapter for the List Activity
  */
 public class QuoteCategoryAdapter extends ArrayAdapter<String> {
     private Context context;
@@ -24,6 +25,10 @@ public class QuoteCategoryAdapter extends ArrayAdapter<String> {
         this.resource = resource;
         this.data = data;
     }
+
+    /**
+     * Internal class to hold the handle to the TextView object for list content.
+     */
     public class Holder{
         TextView tv;
     }

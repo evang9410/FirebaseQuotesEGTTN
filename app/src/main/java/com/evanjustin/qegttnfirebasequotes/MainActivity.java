@@ -34,8 +34,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Main Activity Class.
+ * Created by Evan G, and Thanh Tung Nguyen.
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    // private class variables.
     private DrawerLayout drawer;
     private FirebaseDatabase fbdb; // sorry.
     private DatabaseReference fbdbref;
@@ -43,8 +48,6 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener authListener;
     private FirebaseUser firebaseUser;
     private ListView category_listview;
-    private Quote[] quotes;
-    private Quote last_quote;
     // ArrayLists to hold the quotes
     private ArrayList<Quote> all_quotes; // all the quotes in the firebase db
     private ArrayList<Quote> war_time_quotes; // quotes in the wartime category.
@@ -57,8 +60,14 @@ public class MainActivity extends AppCompatActivity
     SharedPreferences.Editor editor;
 
 
-
-
+    /**
+     * Initilizes the activity.
+     * Calls the authentication for the user to use the Firebase Database.
+     * Initilizes the ListView and adapter for the categories
+     * sets listener for the ListView's onItemPressed --> calls generates random quote based on the
+     * category selected and fires the QuoteActivty activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +119,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Private helper method used to generate a random quote to send to the QuoteActivity
+     * based on the position clicked in the list view.
+     * @param i
+     */
     private void startQuoteActivity(int i) {
 
         Random rnd = new Random();
@@ -137,6 +151,7 @@ public class MainActivity extends AppCompatActivity
                 rng = rnd.nextInt(philosophy_quotes.size());
                 q = philosophy_quotes.get(rng);
         }
+        // Special thanks to Muhammad Aamir Ali from StackOverflow for showing me how to do this.
         Gson gson = new Gson(); // create Google Javascript notation object to save an object in shared prefs
         String json = gson.toJson(q);
         editor.putString("last_run", json);
@@ -148,6 +163,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Private helper method to sort all the provided quotes into their specific catetgories,
+     * which are as class variables.
+     * @param quotes contains all the quotes retrieved from the firebase database.
+     */
     private void sort_all_quotes(ArrayList<Quote> quotes) {
         Log.d("Quotes", "sorting quotes...");
         Log.d("Quotes::sort", String.valueOf(quotes.size()));
@@ -180,14 +200,13 @@ public class MainActivity extends AppCompatActivity
         firebaseAuth = FirebaseAuth.getInstance();
 
         firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password));
-//        firebaseAuth.signInWithEmailAndPassword(getString(R.string.firebase_username),getString(R.string.firebase_password));
         readFirebaseDatabase(fbdbref);
 
     }
 
     /**
      * reads from the firebase database and stores all the quotes in the all_quotes variable.
-     * Organizes the quotes based on categories
+     * calls the sort_all_quotes helper method to organizes the quotes based on categories
      * @param ref
      * @return
      */
@@ -208,26 +227,30 @@ public class MainActivity extends AppCompatActivity
 
             }
 
+            /**
+             * incase of error, log the failure message.
+             * @param databaseError
+             */
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("FB CANCELLED", databaseError.getMessage());
+                Log.w("FB CANCELLED", databaseError.getMessage());
             }
         });
 
     }
 
+    /**
+     * When the activity is killed by the user or the OS, logout the user from firebase.
+     */
     @Override
     public void onDestroy(){
         super.onDestroy();
         firebaseAuth.signOut();
     }
-//
-//    @Override
-//    public void onPause(){
-//        super.onPause();
-//        firebaseAuth.signOut();
-//    }
 
+    /**
+     * Makes sure to close the navigation drawer on back press, if it is open. Otherwise, call super.
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -238,6 +261,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * creates the hamburger menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -245,6 +273,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * handles the option menu selection
+     * calls the appropriate helper method follow through with the action.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -263,6 +297,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Handles the navigation drawer navigation touches.
+     * Calls the appropriate helper methods to do the actions.
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -286,11 +326,20 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Handles the About menu item for nav drawer and hamburger menu
+     * Stats the AboutActivity Activity.
+     */
     private void onAboutMenu() {
         Intent i = new Intent(this, AboutActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Handles the on random menu option.
+     * Calls the startQuoteActivity and passes it a random index between 1 and 5 to be used as
+     * random category. That method then fires the QuoteActivity.
+     */
     private void onRandomMenu() {
         Random rnd = new Random();
         int index = rnd.nextInt(5);

@@ -16,8 +16,21 @@ public class Quote implements Parcelable {
     private String reference;
     private String date;
 
+    /**
+     * Default empty param constructor, used primary by the firebase to create the objects from the
+     * database.
+     */
     public Quote(){}
 
+    /**
+     * Constructor for the Quote Object
+     * @param attributed
+     * @param blurb
+     * @param quote
+     * @param category
+     * @param reference
+     * @param date
+     */
     public Quote(String attributed, String blurb, String quote, String category, String reference, String date) {
         this.attributed = attributed;
         this.blurb = blurb;
@@ -26,6 +39,8 @@ public class Quote implements Parcelable {
         this.reference = reference;
         this.date = date;
     }
+
+    // Mutators for the Quote Object
 
     public String getCategory() {
         return category;
@@ -80,6 +95,16 @@ public class Quote implements Parcelable {
         this.date = date;
     }
 
+    /**
+     * Methods used by the Parcable interface to have a class be parcable, which allows it to be
+     * passed throughout intents.
+     * Special thanks to Dallas Gutauckis for the http://www.parcelabler.com website which easily
+     * Generates a parcable object.
+     * Android studio does have plugins for this too
+     * See answer #2 of this thread:
+     * http://stackoverflow.com/questions/7181526/how-can-i-make-my-custom-objects-parcelable
+     * @param in
+     */
     protected Quote(Parcel in) {
         attributed = in.readString();
         blurb = in.readString();
